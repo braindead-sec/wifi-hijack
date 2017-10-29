@@ -9,6 +9,7 @@ Required Package Dependencies:
 - macchanger
 - hostapd
 - dnsmasq
+- aircrack-ng
 
 Optional Tools:
 
