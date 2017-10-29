@@ -24,6 +24,7 @@ while [[ $# -gt 0 ]]; do
     echo "       macchanger"
     echo "       hostapd"
     echo "       dnsmasq"
+    echo "       aircrack-ng"
     echo ""
     echo "Optional Tools:"
     echo "       wireshark"
